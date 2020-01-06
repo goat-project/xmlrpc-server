@@ -40,9 +40,9 @@ def read_from_dir(resource, user=-2):
     pool = pool_beginning(resource)
 
     if user == -2:
-        read_all(directory, files)
+        pool = pool + read_all(directory, files)
     else:
-        read_active_for_user(directory, files, user)
+        pool = pool + read_active_for_user(directory, files, user)
 
     pool = pool + pool_end(resource)
 
