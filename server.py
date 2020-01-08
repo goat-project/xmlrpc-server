@@ -16,7 +16,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 
 # Create server.
-with SimpleXMLRPCServer(('localhost', args.port), requestHandler=RequestHandler) as server:
+with SimpleXMLRPCServer((args.host, args.port), requestHandler=RequestHandler) as server:
     print(f"Server starts listening at {args.host}:{args.port}.")  # TODO add logger
 
     # Register functions simulated OpenNebula cloud.
@@ -29,7 +29,8 @@ with SimpleXMLRPCServer(('localhost', args.port), requestHandler=RequestHandler)
     server.register_function(Cluster.list, 'one.clusterpool.info')
 
     try:
-        server.serve_forever()
+        server.serve_forever(300)   # poll interval 5 minutes
     except KeyboardInterrupt:
         print("\nKeyboard interrupt received, exiting.")
+        server.server_close()
         sys.exit(0)
