@@ -9,4 +9,4 @@ class User:
     def list(session):
         # Lists all users.
 
-        return [bool(1), read_from_dir(Resource.CLUSTER), int(0)]
+        return [bool(1), read_from_dir(Resource.USER), int(0)]
